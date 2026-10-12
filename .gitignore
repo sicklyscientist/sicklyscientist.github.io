@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.pnpm-store/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Unapproved article and its assets stay local.
+src/content/posts/investigating-my-genetic-mutation-with-ai.mdx
+src/content/posts/investigating-my-genetic-mutation-with-ai-assets/

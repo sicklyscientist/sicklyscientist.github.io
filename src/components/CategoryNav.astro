@@ -1,0 +1,12 @@
+---
+import { categorySlug, publishedPosts } from '../lib/posts';
+import { path } from '../lib/urls';
+interface Props { selected?: string }
+const { selected } = Astro.props;
+const posts = await publishedPosts();
+const categories = [...new Set(posts.map(post => post.data.category))].sort();
+---
+<nav class="category-nav" aria-label="Filter writing by category">
+  <a href={path('blog/')} aria-current={!selected ? 'page' : undefined}>All <span>{posts.length}</span></a>
+  {categories.map(category => <a href={path(`blog/category/${categorySlug(category)}/`)} aria-current={selected === category ? 'page' : undefined}>{category} <span>{posts.filter(post => post.data.category === category).length}</span></a>)}
+</nav>

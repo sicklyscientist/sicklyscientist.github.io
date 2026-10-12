@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { path } from '../lib/urls';
+---
+
+<Base title="Page not found" noindex>
+  <section class="page-intro">
+    <p class="eyebrow">404</p>
+    <h1>A loose end.</h1>
+    <p class="lede">This page isn’t in the notebook.</p>
+    <a href={path('blog/')}>Find something to read →</a>
+  </section>
+</Base>

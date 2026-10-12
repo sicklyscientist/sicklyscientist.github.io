@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { publishedPosts } from '../lib/posts';
+import { path } from '../lib/urls';
+import { site } from '../site';
+const posts = await publishedPosts();
+---
+
+<Base>
+  <section class="intro home-intro">
+    <h1>Writing </h1>
+    <p class="eyebrow">{site.intro}</p>
+  </section>
+  <section aria-labelledby="writing">
+    <div class="section-heading">
+      <h2 id="writing">Recent writing</h2>
+      <a href={path('blog/')}>Archive →</a>
+    </div>
+    <PostList posts={posts.slice(0, 5)} />
+    {posts.length === 0 && <p class="empty-state">The notebook is open. New writing will appear here.</p>}
+  </section>
+</Base>

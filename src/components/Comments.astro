@@ -1,0 +1,41 @@
+---
+interface Props { shortname: string; identifier: string; url: string; title: string }
+const { shortname, identifier, url, title } = Astro.props;
+---
+<section class="comments" aria-labelledby="comments-title">
+  <h2 id="comments-title">Discussion</h2>
+  <p>Comments are hosted by Disqus. Load them to join the conversation.</p>
+  <button id="load-comments" data-shortname={shortname} data-identifier={identifier} data-url={url} data-title={title}>Load comments</button>
+  <p id="comments-status" role="status"></p>
+  <div id="disqus_thread"></div>
+  <noscript>Enable JavaScript to load Disqus comments.</noscript>
+</section>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('#load-comments');
+  button?.addEventListener('click', () => {
+    const status = document.querySelector<HTMLElement>('#comments-status')!;
+    const { shortname, identifier, url, title } = button.dataset;
+    if (!shortname || !/^[a-z0-9-]+$/i.test(shortname)) {
+      status.textContent = 'Comments are not configured yet.';
+      return;
+    }
+    button.disabled = true;
+    status.textContent = 'Loading comments…';
+    type DisqusConfig = { page: { identifier?: string; url?: string; title?: string } };
+    (window as Window & { disqus_config?: (this: DisqusConfig) => void }).disqus_config = function () {
+      this.page.identifier = identifier;
+      this.page.url = url;
+      this.page.title = title;
+    };
+    const script = document.createElement('script');
+    script.src = `https://${shortname}.disqus.com/embed.js`;
+    script.async = true;
+    script.onload = () => { status.textContent = ''; button.hidden = true; };
+    script.onerror = () => {
+      status.textContent = 'Comments could not load. Check your connection or content blocker and try again.';
+      button.disabled = false;
+      script.remove();
+    };
+    document.body.appendChild(script);
+  });
+</script>

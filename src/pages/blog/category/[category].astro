@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PostList from '../../../components/PostList.astro';
+import CategoryNav from '../../../components/CategoryNav.astro';
+import { categorySlug, publishedPosts } from '../../../lib/posts';
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  return [...new Set(posts.map(post => post.data.category))].map(category => ({ params: { category: categorySlug(category) }, props: { category } }));
+}
+const { category } = Astro.props;
+const posts = (await publishedPosts()).filter(post => post.data.category === category);
+---
+
+<Base title={`${category} — Archive`} description={`Essays and notes filed under ${category}.`}>
+  <section class="archive-list" aria-label={`${category} post archive`}>
+    <CategoryNav selected={category} />
+    <div class="section-heading">
+      <h2>{category}</h2>
+      <span>{posts.length} {posts.length === 1 ? 'entry' : 'entries'}</span>
+    </div>
+    <PostList posts={posts} />
+  </section>
+</Base>

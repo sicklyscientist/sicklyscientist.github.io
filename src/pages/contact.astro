@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+
+<Base title="Contact">
+  <section class="page-intro">
+    <h1>Contact</h1>
+
+    <div class="prose">
+      <p>
+        I'm always happy to exchange ideas with researchers, fellow patients, and anyone interested in computational biology, genomics, and rare diseases.
+      </p>
+
+      <p>
+        If you've spotted an error, have relevant research to share, or would like to discuss a potential collaboration, feel free to reach out.
+      </p>
+
+      {site.email ? (
+        <p>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      ) : (
+        <p class="contact-placeholder">Dedicated contact email coming soon.</p>
+      )}
+    </div>
+  </section>
+</Base>

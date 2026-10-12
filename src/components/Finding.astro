@@ -1,0 +1,15 @@
+---
+interface Props {
+  value: string;
+  interpretation: string;
+  label?: string;
+}
+
+const { value, interpretation, label = 'Finding' } = Astro.props;
+---
+
+<aside class="finding" aria-label={label}>
+  <span class="finding-label">{label}</span>
+  <strong class="finding-value">{value}</strong>
+  <span class="finding-interpretation">{interpretation}</span>
+</aside>

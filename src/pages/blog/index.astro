@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import PostList from '../../components/PostList.astro';
+import { publishedPosts } from '../../lib/posts';
+
+const posts = await publishedPosts();
+---
+
+<Base title="Archive">
+  <section class="archive-list" aria-label="Post archive">
+    <CategoryNav />
+    <div class="section-heading">
+      <h2>All posts</h2>
+      <span>{posts.length} {posts.length === 1 ? 'entry' : 'entries'}</span>
+    </div>
+    <PostList posts={posts} />
+    {posts.length === 0 && (
+      <p class="empty-state">Research notes are on their way.</p>
+    )}
+  </section>
+</Base>

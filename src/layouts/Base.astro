@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
+import { site } from '../site';
+import { path, absolute } from '../lib/urls';
+interface Props {
+  title?: string; description?: string; image?: string; imageAlt?: string;
+  article?: boolean; date?: Date; updated?: Date; noindex?: boolean;
+}
+const { title, description = site.description, image = site.defaultImage,
+  imageAlt = site.defaultImageAlt, article = false, date, updated, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} — ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site!);
+const imageURL = absolute(image, Astro.site!);
+const current = Astro.url.pathname;
+const identityJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: new URL(path(), Astro.site!).href,
+  jobTitle: 'Machine Learning Engineer',
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:title" content={title || site.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title || site.title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    {date && <meta property="article:published_time" content={date.toISOString()} />}
+    {updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+    <link rel="icon" type="image/svg+xml" href={path('favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={path('rss.xml')} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(identityJsonLd)} />
+    <script is:inline>
+      (() => {
+        let theme;
+        try { theme = localStorage.getItem('theme'); } catch {}
+        document.documentElement.dataset.theme = theme === 'light' || theme === 'dark'
+          ? theme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      })();
+    </script>
+    <Analytics />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="wordmark" href={path()}>{site.title}</a>
+      <nav aria-label="Main navigation">
+        <a href={path('about/')} aria-current={current === path('about/') ? 'page' : undefined}>About</a>
+        <!-- <a href={path('blog/')} aria-current={(current === path('blog/') || current.startsWith(path('blog/category/'))) ? 'page' : undefined}>Archive</a> -->
+        <a href={path('contact/')} aria-current={current === path('contact/') ? 'page' : undefined}>Contact</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor"/></svg></button>
+      </nav>
+    </header>
+    <main id="main" class="shell"><slot /></main>
+    <footer class="site-footer shell">
+      <div><a href={path('rss.xml')}>RSS ↗</a></div>
+    </footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('#theme-toggle')!;
+      const media = matchMedia('(prefers-color-scheme: dark)');
+      let explicit = false;
+      try { explicit = ['light', 'dark'].includes(localStorage.getItem('theme') || ''); } catch {}
+      const update = () => {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        button.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} mode`);
+        button.setAttribute('aria-pressed', String(dark));
+      };
+      button.hidden = false;
+      update();
+      button.addEventListener('click', () => {
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        explicit = true;
+        try { localStorage.setItem('theme', theme); } catch {}
+        update();
+      });
+      media.addEventListener('change', () => {
+        if (!explicit) { document.documentElement.dataset.theme = media.matches ? 'dark' : 'light'; update(); }
+      });
+    </script>
+  </body>
+</html>
