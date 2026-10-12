@@ -25,5 +25,6 @@ for (const file of files.filter(f => /\.(html|xml|txt|js|css)$/.test(f))) {
   }
 }
 for (const path of ['index.html','about/index.html','contact/index.html','blog/index.html','rss.xml','sitemap-index.xml','social-default.png','favicon.svg']) await access(join('dist',path));
-assert.ok(!(await readFile('dist/rss.xml','utf8')).includes('<item>'), 'Starter feed should contain no draft posts');
-console.log('Verified pages, local assets, canonical metadata, empty RSS, and production draft exclusion.');
+assert.match(await readFile('dist/rss.xml','utf8'), /investigating-my-genetic-mutation-with-ai/, 'Published article should appear in RSS');
+await access('dist/blog/investigating-my-genetic-mutation-with-ai/index.html');
+console.log('Verified pages, local assets, canonical metadata, published article RSS, and production draft exclusion.');

@@ -1,0 +1,178 @@
+---
+title: Using AlphaGenome to Investigate My Own Genetic Mutation
+description: "Using AlphaFold, AlphaMissense and AlphaGenome to make a Variant of Uncertain Significance slightly less uncertain."
+date: 2026-09-11
+draft: false
+category: Machine Learning
+tags: [Machine learning]
+comments: true
+commentId: investigating-my-genetic-mutation-with-ai
+socialImage: /images/alphagenome-social.png
+socialImageAlt: AlphaGenome analysis of a genetic variant
+---
+import Finding from '../../components/Finding.astro';
+import Figure from '../../components/Figure.astro';
+import figure1 from './investigating-my-genetic-mutation-with-ai-assets/image1.png';
+import figure2 from './investigating-my-genetic-mutation-with-ai-assets/image2.png';
+import figure3 from './investigating-my-genetic-mutation-with-ai-assets/image3.png';
+import figure4 from './investigating-my-genetic-mutation-with-ai-assets/image4.png';
+import figure5 from './investigating-my-genetic-mutation-with-ai-assets/image5.png';
+
+I got my genetic test results back recently.
+
+If you’re ever unlucky enough to need genetic testing, hope that it finds nothing important. And if it does, hope it’s something medicine has seen before.
+
+Because there’s a secret third option: the test finds a change in your DNA, but there isn’t enough evidence to tell whether it’s harmful or harmless. In genetics, this lands you in a category called **Variant of Uncertain Significance**, or VUS.
+
+A VUS is a strange thing to receive. The lab can tell you exactly what changed in your DNA, exactly which amino acid that alters in the resulting protein, and exactly where it happened, while still being unable to tell you the thing you actually want to know: **whether it matters**.
+
+Mine was in [COL6A3](https://www.ncbi.nlm.nih.gov/gene/1293), a gene involved in making collagen VI, a protein that helps support the structure of tissues including skeletal muscle.
+Variants in COL6A3 are associated with a spectrum of neuromuscular disorders, including Bethlem and Ullrich muscular dystrophy. Given my own longstanding neuromuscular symptoms, the finding was difficult to ignore.
+
+The problem was that my particular mutation, **p.Ile1563Asn (I1563N)**, hadn't previously been established as disease-causing. At a particular position in the gene, one DNA letter had been swapped out for another in a way that had not previously been reported in an affected patient.
+
+I had become **patient-zero of a mutation with no priors**. One precise enough to name, but not well understood enough to interpret.
+
+## Can AI Solve Me?
+
+My neurologist knows I’m an AI engineer, and over time this has turned into a running joke between us every time I see him, where he’ll ask whether AI has solved me yet. So far, no. 
+He admitted that he had asked an AI chatbot about my mutation too, with similarly unhelpful results.
+
+But the question stuck with me. 
+
+*What do you do when you have a mutation with no prior patient data to learn from? If you can’t infer what it does from previous cases, could you infer anything useful from the mutation itself?*
+
+I know almost nothing about molecular biology, but I do know Machine Learning, and I had heard of [AlphaFold](https://deepmind.google/science/alphafold/): DeepMind’s system for predicting the 3D structure of a protein from its amino-acid sequence. 
+
+A naive question popped in my head:
+> Could I model where the changed amino acid sat in the protein and work out whether replacing it was likely to cause issues?
+
+## Understanding the Mutation
+
+Before I could do anything useful, I had to understand what the mutation actually meant.
+
+My variant is written as **COL6A3 c.4688T>A (p.Ile1563Asn)**. 
+
+At position 4688 of the DNA coding sequence, a thymine had been replaced by an adenine:
+```diff
+- T  
++ A
+```
+If you think of DNA as source code, the cell’s protein-making machinery does something vaguely compiler-like: it reads that sequence in groups of 3 letters, called _codons_, with each codon specifying an amino acid.
+
+So that one-character source diff produced an amino acid change at position 1563 in the resulting protein:
+```diff
+- isoleucine  
++ asparagine
+```
+I’m not a biologist. At this point, I was still Googling what an amino acid was. But with some help from the internet and AI, I learned that isoleucine and asparagine were quite different chemically. 
+
+Isoleucine is *hydrophobic*, meaning it tends to avoid water; while asparagine is *polar*, i.e: interacts more readily with water. Their Grantham distance is 149, which is molecular biology speak for “*pretty chemically different*". 
+
+Proteins are not just strings of amino acids. They fold into three-dimensional structures, and the chemistry of each amino acid helps determine how those structures hold together and behave.
+
+My first mental model was naively simple: *Take the normal protein. Take the mutated protein. Compare the two and look for whatever broke.*
+
+As it turns out, protein structures are not quite that easy to diff.
+
+But the basic idea turned out not to be completely useless. Even if I couldn’t just generate a clean *before* and *after* and diff the shapes, I could still ask where the changed amino acid sat, what kind of structural environment it lived in, and whether swapping it for a chemically different amino acid looked plausible.
+
+If it was on the protein’s surface, where it could already interact with water, a polar substitution might be relatively easy to accommodate. But if it was buried inside the protein, in a region normally shielded from water, the same substitution could be more disruptive to local packing and stability.
+
+That gave me my first task: **find the changed amino acid in a 3D protein model and figure out what kind of neighborhood it lived in.**
+
+## Visualising the Mutation in AlphaFold
+
+AlphaFold predicts a protein’s 3D structure from its amino-acid sequence. So the first thing I wanted to know was whether AlphaFold’s model was even confident about the part of the protein containing my mutation. 
+
+Fortunately, the amino acid I was interested in sat in a region with a confidence score of about 84, which meant the region looked reliable enough to inspect.
+
+Next, I downloaded the model off AlphaFold and opened it in [ChimeraX](https://www.cgl.ucsf.edu/chimerax/), a tool for inspecting protein structures in 3D.
+
+At first, I did the very scientific thing of rotating the protein around and asking myself whether the changed amino acid *looked* buried.
+
+<Figure src={figure1} alt="AlphaFold protein structure viewed in ChimeraX, with COL6A3 residue I1563 highlighted" caption="Figure 1. AlphaFold protein structure viewed in ChimeraX, with COL6A3 I1563 highlighted" size="compact" />
+
+I also checked the neighboring amino acids. It wasn’t surrounded only by hydrophobic residues, there were polar and charged amino acids nearby too.
+
+But I wanted something a little more quantitative than vibes. 
+
+Fortunately, there is a measure for this: **solvent-accessible surface area**, or **SASA**.
+
+SASA is basically a measure of how much of an amino acid a water-sized probe could touch. A high value means it’s exposed; a low value means it’s buried.
+
+Running the SASA calculation in ChimeraX gave the amino acid affected by my mutation an accessible surface area of: **0.083 Å²**, with a **pLDDT confidence score of 91.19**.
+
+<Figure src={figure2} alt="Solvent-accessible surface area calculation for COL6A3 residue I1563." caption="Figure 2. Solvent-accessible surface area calculation for COL6A3 residue I1563" size="prose" />
+
+By comparison, a fully exposed isoleucine typically sits at around 200 Å². On that scale, mine was **less than 0.1% exposed** — effectively completely buried inside the protein.
+
+This gave me a more concrete hypothesis than a generic prediction score. **The original amino acid was hydrophobic and deeply buried, while the replacement was polar.** Because the interiors of folded proteins are tightly packed, swapping a buried amino acid for one with the opposite chemical property could potentially disturb the shape or stability of that part of the protein.
+
+
+## Does Evolution Care About This Amino Acid?
+
+> If this amino acid mattered structurally, had evolution been reluctant to change it too?
+
+The structure gave me one clue, but I wanted to know whether this particular site in the protein had also been preserved through evolution.
+
+If the same amino acid keeps showing up at the same spot in the protein across many related species, that could be a sign that changing it is less well tolerated.
+
+<Figure src={figure3} alt="Conservation of COL6A3 I1563 and its surrounding sequence across species" caption="Figure 3. Conservation of COL6A3 I1563 and its surrounding sequence across species." size="compact" />
+
+Using [UniProt](https://www.uniprot.org/align) to compare the corresponding stretch of the protein across several species showed that **the isoleucine affected by my mutation was conserved across the mammals I checked**. Chicken had valine at the same position (still a chemically similar hydrophobic amino acid) while the surrounding sequence was also largely conserved.
+
+That didn’t prove the mutation was harmful, but it added another useful clue: that this was not only a buried amino acid, but one that evolution had preserved across species.
+
+## What Does AlphaMissense Think?
+
+Next, I looked up the mutation in [AlphaMissense](https://alphamissense.hegelab.org/), which takes a single amino-acid substitution (for a specific gene/position) and assigns it a pathogenicity score. 
+
+<Figure src={figure4} alt="AlphaMissense pathogenicity predictions for substitutions at the affected position" caption="Figure 4. AlphaMissense predictions for possible substitutions at COL6A3 position 1563." size="compact" />
+
+My mutation, **Ile \-\> Asn**, scored **0.809**, which AlphaMissense labels “likely pathogenic".
+
+What's interesting is that when you look at what AlphaMissense predicts for other substitutions, a clear pattern emerges:
+
+Substitutions for other hydrophobic amino acids like Leu, Met, and Phe, were predicted to be likely benign. But replacing it with chemically different amino acids-- Lys (charged), His (polar/partly charged), or Asn (polar), were predicted to be much more damaging.
+
+In other words, AlphaMissense seemed to be indicating that this position may tolerate replacement with other bulky hydrophobic residues, **but not substitutions that change the local chemistry more dramatically**.
+
+## A New Model Enters the Picture: AlphaGenome
+
+While I was in the middle of all this, DeepMind released [AlphaGenome Atlas](https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/).
+
+While AlphaMissense asks, “*how bad does this amino-acid substitution look?*", AlphaGenome asks the broader question: “*what molecular effects might this DNA change have?*"
+
+AlphaGenome takes a DNA sequence and predicts how changing it might affect what the cell actually does with that DNA. A mutation might change the protein itself, as mine does, but it could also change when or how much of the gene gets used, or how the cell processes its instructions before making the protein.
+
+For each mutation, AlphaGenome reports an **AlphaGenome Variant Impact (AVI)** score: essentially a way of ranking how unusual or consequential the model thinks that DNA change looks compared with other possible single-letter changes in the genome.
+
+
+<Figure src={figure5} alt="AlphaGenome Atlas result showing the variant impact score and feature contributions" caption="Figure 5. AlphaGenome variant-impact prediction for my COL6A3 variant." size="compact" maxWidth={400} />
+
+Mine had an **AVI Phred** score of 25.7, putting it in the top 0.27% for predicted molecular impact. In practical terms, if you ranked 10,000 possible single-letter DNA changes by how much AlphaGenome expects them to affect molecular biology, mine would land somewhere around the top 27\. 🫠
+
+Then I got to the feature importance breakdown-- basically, which signals were contributing most to the score.
+
+> **AlphaMissense: 51.2% · Cactus: 28.5% · PhastCons: 17.7%**
+
+The last two were especially interesting because they were both measures of evolutionary conservation, and were essentially much larger-scale versions of the question I had already asked with UniProt, where I had compared the amino acid across a handful of mammals to see whether evolution had kept it around.
+
+**Together, AlphaMissense and the two conservation signals accounted for about 97% of the score.** The remaining features, which covered things like how the DNA is regulated and processed, contributed very little.
+
+So the strongest signals in AlphaGenome were pointing back to the same two things I had already been investigating: **the amino-acid change itself**, and the fact that **evolution really seemed to like that amino acid where it was**.
+
+## So, Did AI Solve Me?
+
+Not exactly. **But I understood the mutation (and the biology around it) a lot better than I did when I started.**
+
+What had originally been a cryptic line in a genetic report now had a plausible physical story attached to it. I understood what kind of amino acid had changed, where it sat in the protein, why it being buried might matter, and why conservation across species was relevant. I also understood more about collagen VI and why a variant affecting this protein was worth investigating in the context of my neuromuscular symptoms.
+
+This was not a case of feeding my mutation into AI and receiving The Answer™. Even so, it got me much further than I expected.
+
+I went into this knowing almost nothing about genetics or molecular biology. Beyond prediction scores, AI helped me understand enough of the biology to know what questions to ask, what the models were actually predicting, and where the remaining uncertainty lived.
+
+I still don’t know whether this mutation is my answer. Getting there would require more clinical evidence-- things like targeted tissue testing, functional studies, or eventually more patients with the same mutation.
+
+But I did manage to turn a **Variant of Uncertain Significance** into, at the very least, a **Variant of Slightly Less Uncertain Significance**.
