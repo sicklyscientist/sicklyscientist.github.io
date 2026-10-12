@@ -166,3 +166,18 @@ body:has(.about-intro) .shell{max-width:832px}body:has(.about-intro) .about-intr
 @media (max-width: 600px) {
   .archive-list { padding-top: 20px; }
 }
+
+/* Protein illustration shares the existing homepage link and typography. */
+.wordmark { display: inline-flex; align-items: center; gap: 8px; }
+.wordmark-icon { display: block; width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+@media (max-width: 600px) {
+  .wordmark-icon { width: 30px; height: 30px; }
+}
+
+/* Keep the page heading distinct without overpowering the masthead. */
+.home-intro h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  margin-bottom: 24px;
+}

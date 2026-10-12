@@ -24,7 +24,7 @@ for (const file of files.filter(f => /\.(html|xml|txt|js|css)$/.test(f))) {
     await access(join('dist',path.endsWith('/') ? path+'index.html' : path));
   }
 }
-for (const path of ['index.html','about/index.html','contact/index.html','blog/index.html','rss.xml','sitemap-index.xml','social-default.png','favicon.svg']) await access(join('dist',path));
+for (const path of ['index.html','about/index.html','contact/index.html','blog/index.html','rss.xml','sitemap-index.xml','social-default.png','favicon-32.png','favicon-64.png','apple-touch-icon.png','protein-fold.png']) await access(join('dist',path));
 assert.match(await readFile('dist/rss.xml','utf8'), /investigating-my-genetic-mutation-with-ai/, 'Published article should appear in RSS');
 await access('dist/blog/investigating-my-genetic-mutation-with-ai/index.html');
 console.log('Verified pages, local assets, canonical metadata, published article RSS, and production draft exclusion.');
