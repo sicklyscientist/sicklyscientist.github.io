@@ -186,14 +186,14 @@ body:has(.about-intro) .shell{max-width:832px}body:has(.about-intro) .about-intr
 .site-footer { margin-top: 36px; padding-block: 20px 26px; }
 .home-intro { padding-block: 18px 28px; }
 .home-intro h1 { margin-bottom: 6px; }
-.home-description { margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--muted); }
+.home-description { margin: 0; font-size: 1rem; line-height: 1; color: var(--muted); }
 .post-list > li { padding-block: 24px; }
 .page-intro { padding: 12px 0; }
 .page-intro h1 { font-size: 2.4rem; margin-bottom: 8px; }
 .page-intro > .prose { margin-top: 0; }
 .page-intro .prose > :last-child { margin-bottom: 0; }
 .prose { font-size: 1rem; line-height: 1.75; }
-.prose p { margin-bottom: .9em; }
+.prose p { margin-bottom: 1em; }
 .prose h2 { margin-top: 1.8em; margin-bottom: .65em; }
 .prose h3 { margin-top: 1.6em; margin-bottom: .6em; }
 .article { padding-top: 20px; }
