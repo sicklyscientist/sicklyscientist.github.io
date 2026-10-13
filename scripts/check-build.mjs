@@ -11,7 +11,7 @@ for (const file of files.filter(f => /\.(html|xml|txt|js|css)$/.test(f))) {
   assert.ok(!/\bG-[A-Z0-9]{10}\b|googletagmanager|linkedin\.com/i.test(text), `Unexpected tracking/profile metadata: ${file}`);
   if (!file.endsWith('.html')) continue;
   assert.match(text, /name="author" content="Kay"/);
-  assert.match(text, /property="og:site_name" content="sicklyscientist"/);
+  assert.match(text, /property="og:site_name" content="CanAICure.me"/);
   const canonical = text.match(/rel="canonical" href="([^"]+)"/)[1];
   assert.equal(new URL(canonical).origin,'https://sicklyscientist.github.io');
   for (const match of text.matchAll(/(?:href|src|content)="([^"#]+)"/g)) {

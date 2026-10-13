@@ -1,10 +1,10 @@
 export const site = {
   name: 'Kay',
-  title: 'sicklyscientist',
+  title: 'CanAICure.me',
   description: 'AI Engineer turned patient scientist. Notes on AI, genetics, and my quest to cure myself.',
   intro: "AI Engineer turned patient scientist. Notes on AI, genetics, and my quest to cure myself.",
-  email: 'thesicklyscientist@gmail.com',
+  email: 'kay@canaicure.me',
   defaultImage: '/social-default.png',
-  defaultImageAlt: 'Sickly Scientist — personal research notes by Kay',
+  defaultImageAlt: 'AI Engineer turned patient scientist. Notes on AI, genetics, and my quest to cure myself.',
   disqusShortname: import.meta.env.PUBLIC_DISQUS_SHORTNAME || '',
 };

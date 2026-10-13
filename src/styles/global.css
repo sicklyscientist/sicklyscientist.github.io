@@ -181,3 +181,34 @@ body:has(.about-intro) .shell{max-width:832px}body:has(.about-intro) .about-intr
   letter-spacing: -.045em;
   margin-bottom: 24px;
 }
+
+/* Compact editorial rhythm, with a naturally flowing footer. */
+.site-footer { margin-top: 36px; padding-block: 20px 26px; }
+.home-intro { padding-block: 18px 28px; }
+.home-intro h1 { margin-bottom: 6px; }
+.home-description { margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--muted); }
+.post-list > li { padding-block: 24px; }
+.page-intro { padding: 12px 0; }
+.page-intro h1 { font-size: 2.4rem; margin-bottom: 8px; }
+.page-intro > .prose { margin-top: 0; }
+.page-intro .prose > :last-child { margin-bottom: 0; }
+.prose { font-size: 1rem; line-height: 1.75; }
+.prose p { margin-bottom: .9em; }
+.prose h2 { margin-top: 1.8em; margin-bottom: .65em; }
+.prose h3 { margin-top: 1.6em; margin-bottom: .6em; }
+.article { padding-top: 20px; }
+.back-link { margin-bottom: 24px; }
+.article-header { margin-bottom: 28px; }
+.article-header h1 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); margin-bottom: 16px; }
+.article-header .lede { font-size: 1.0625rem; line-height: 1.6; }
+.article-meta { margin-top: 16px; }
+.article-end { margin-top: 36px; padding-top: 20px; }
+@media (max-width: 600px) {
+  .site-footer { margin-top: 28px; padding-block: 18px 24px; }
+  .home-intro { padding-block: 12px 24px; }
+  .page-intro { padding: 8px 0; }
+  .home-description { font-size: 1.0625rem; }
+  .page-intro h1 { font-size: 2.1rem; }
+  .article { padding-top: 16px; }
+  .article-header { margin-bottom: 24px; }
+}

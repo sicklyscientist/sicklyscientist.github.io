@@ -40,8 +40,6 @@ git config --show-origin --get user.name
 git config --show-origin --get user.email
 ```
 
-Only after reviewing the identity and explicitly approving publication: sign in to GitHub as sicklyscientist, create an empty repository named sicklyscientist.github.io (not a fork), and set Settings → Pages → Source to GitHub Actions. Confirm your CLI/SSH credentials select that account. Add its remote, commit, and push main. The included workflow installs locked dependencies, validates, builds, checks output, and uploads dist to Pages. The domain and root base path are fixed in astro.config.mjs. No tracking variables are required.
-
 ## Before publishing
 
 - Verify commit author AND committer email and signing identity belong to the dedicated account.

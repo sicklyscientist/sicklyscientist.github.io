@@ -3,19 +3,19 @@ import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
 import { publishedPosts } from '../lib/posts';
 import { path } from '../lib/urls';
-import { site } from '../site';
 const posts = await publishedPosts();
 ---
 
 <Base>
   <section class="intro home-intro">
-    <h1>Writing </h1>
-    <p class="eyebrow">{site.intro}</p>
+      <p class="eyebrow">AI Engineer · Patient Scientist</p>
+      <h1>CanAICure.me</h1>
+      <p class="home-description">Notes on AI, genetics, and my quest to cure myself.</p>
   </section>
   <section aria-labelledby="writing">
     <div class="section-heading">
       <h2 id="writing">Recent writing</h2>
-      <a href={path('blog/')}>Archive →</a>
+      <a href={path('blog/')}>Writing →</a>
     </div>
     <PostList posts={posts.slice(0, 5)} />
     {posts.length === 0 && <p class="empty-state">The notebook is open. New writing will appear here.</p>}
