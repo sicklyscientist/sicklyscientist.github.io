@@ -1,12 +1,11 @@
 ---
-import { site } from '../site';
 import { path } from '../lib/urls';
 ---
 
 <aside class="author-box" aria-labelledby="author-heading">
   <img src={path('author-pic.jpg')} width="72" height="72" alt="" loading="lazy" />
   <div>
-    <p class="author-label">About the author</p>
+    <p class="author-label" id="author-heading">About the author</p>
     <p class="author-note">
       Kay is an AI engineer exploring the intersection of AI, biology, and healthcare, inspired by her own experience with rare-disease genetics.
     </p>
@@ -40,7 +39,10 @@ import { path } from '../lib/urls';
   a { text-decoration-color: var(--line); }
   a:hover { color: var(--focus); }
   @media (max-width: 600px) {
-    .author-box { grid-template-columns: 1fr; padding: 18px; gap: 12px; }
-    img { width: 52px; height: 52px; }
+    .author-box { grid-template-columns: 48px minmax(0, 1fr); align-items: start; padding: 12px; gap: 10px; margin-top: 20px; }
+    img { width: 48px; height: 48px; }
+    .author-label { margin-bottom: 3px; }
+    .author-note { margin-bottom: 0; line-height: 1.4; }
+    nav { margin-top: 5px; }
   }
 </style>
