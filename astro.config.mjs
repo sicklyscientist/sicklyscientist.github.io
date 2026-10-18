@@ -6,7 +6,7 @@ import rehypeKatex from 'rehype-katex';
 import { unified } from '@astrojs/markdown-remark';
 
 export default defineConfig({
-  site: 'https://sicklyscientist.github.io',
+  site: 'https://canaicure.me',
   base: '/',
   trailingSlash: 'always',
   output: 'static',

@@ -13,11 +13,11 @@ for (const file of files.filter(f => /\.(html|xml|txt|js|css)$/.test(f))) {
   assert.match(text, /name="author" content="Kay"/);
   assert.match(text, /property="og:site_name" content="CanAICure.me"/);
   const canonical = text.match(/rel="canonical" href="([^"]+)"/)[1];
-  assert.equal(new URL(canonical).origin,'https://sicklyscientist.github.io');
+  assert.equal(new URL(canonical).origin,'https://canaicure.me');
   for (const match of text.matchAll(/(?:href|src|content)="([^"#]+)"/g)) {
-    if (!match[1].startsWith("/") && !match[1].startsWith("https://sicklyscientist.github.io/")) continue;
+    if (!match[1].startsWith("/") && !match[1].startsWith("https://canaicure.me/")) continue;
     const url = new URL(match[1], canonical);
-    if (url.origin !== 'https://sicklyscientist.github.io') continue;
+    if (url.origin !== 'https://canaicure.me') continue;
     const path = decodeURIComponent(url.pathname);
     if (path === canonical.replace(url.origin,'' ) && match[0].startsWith('content')) continue;
     if (file === 'dist/404.html' && path === '/404/') continue;
