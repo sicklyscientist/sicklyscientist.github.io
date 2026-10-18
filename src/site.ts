@@ -1,4 +1,5 @@
 export const site = {
+  googleAnalyticsId: 'G-5FK3E2T876',
   name: 'Kay',
   title: 'CanAICure.me',
   description: 'AI Engineer turned patient scientist. Notes on AI, genetics, and my quest to cure myself.',

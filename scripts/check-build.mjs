@@ -8,8 +8,12 @@ const files = await walk('dist');
 for (const file of files.filter(f => /\.(html|xml|txt|js|css)$/.test(f))) {
   const text = await readFile(file,'utf8');
   assert.ok(!text.includes('style-preview') && !text.includes('demo-reading-') && !text.includes('Layout placeholder only'), `Draft leaked: ${file}`);
-  assert.ok(!/\bG-[A-Z0-9]{10}\b|googletagmanager|linkedin\.com/i.test(text), `Unexpected tracking/profile metadata: ${file}`);
+  assert.ok(!/linkedin\.com/i.test(text), `Unexpected profile metadata: ${file}`);
+  for (const id of text.match(/\bG-[A-Z0-9]{10}\b/g) || []) {
+    assert.equal(id, 'G-5FK3E2T876', `Unexpected analytics property: ${file}`);
+  }
   if (!file.endsWith('.html')) continue;
+  assert.ok(text.includes('G-5FK3E2T876') && text.includes('https://www.googletagmanager.com/gtag/js?id='), `Missing analytics: ${file}`);
   assert.match(text, /name="author" content="Kay"/);
   assert.match(text, /property="og:site_name" content="CanAICure.me"/);
   const canonical = text.match(/rel="canonical" href="([^"]+)"/)[1];
