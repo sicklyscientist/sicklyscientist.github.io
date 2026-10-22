@@ -15,7 +15,7 @@ const posts = await publishedPosts();
   <section aria-labelledby="writing">
     <div class="section-heading">
       <h2 id="writing">Recent writing</h2>
-      <a href={path('blog/')}>Writing →</a>
+      <a href={path('blog/')}>Writing</a>
     </div>
     <PostList posts={posts.slice(0, 5)} />
     {posts.length === 0 && <p class="empty-state">The notebook is open. New writing will appear here.</p>}

@@ -17,7 +17,7 @@ const minutes = Math.max(1, Math.ceil((post.body || '').split(/\s+/).length / 22
   <article class="article">
     {post.data.draft && <p class="archive-note">Draft — local styling preview only. Excluded from production.</p>}
     <header class="article-header">
-      <a class="back-link" href={path('blog/')}>← Writing</a>
+      <a class="back-link" href={path('blog/')}>Writing</a>
       <p class="eyebrow">{post.data.tags.join(' / ')}</p>
       <h1>{post.data.title}</h1>
       <p class="lede">{post.data.description}</p>
@@ -27,7 +27,7 @@ const minutes = Math.max(1, Math.ceil((post.body || '').split(/\s+/).length / 22
       {post.data.toc && toc.length > 1 && <aside class="toc" data-toc><details open><summary>On this page</summary><nav aria-label="Table of contents"><ol>{toc.map(h => <li class:list={{ nested: h.depth === 3 }}><a data-toc-link href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav></details></aside>}
       <div class="prose"><Content /></div>
     </div>
-    <!-- <div class="article-end"><span aria-hidden="true">∎</span><a href={path('blog/')}>Back to Writing →</a></div> -->
+    <!-- <div class="article-end"><span aria-hidden="true">∎</span><a href={path('blog/')}>Back to Writing</a></div> -->
     <AuthorBox />
     {post.data.comments && site.disqusShortname && <Comments shortname={site.disqusShortname} identifier={post.data.commentId || post.id} url={new URL(Astro.url.pathname, Astro.site!).href} title={post.data.title} />}
   </article>
