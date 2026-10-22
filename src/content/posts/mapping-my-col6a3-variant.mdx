@@ -5,7 +5,7 @@ date: 2026-10-21
 category: Genetics
 tags: [Genetics, Computational Biology]
 draft: false
-#listed: false
+listed: false
 toc: true
 comments: true
 commentId: mapping-my-col6a3-variant
@@ -27,11 +27,11 @@ This time, I wanted to understand the bigger picture: **how collagen VI is built
 
 ## A primer on Collagen VI
 
-When we hear *collagen*, we tend to think of skin and elasticity. But collagen isn't just one protein. The human body contains 28 recognised types of collagen, each with different roles in tissues ranging from skin and tendons to cartilage, bones and muscles
+When we hear *collagen*, we tend to think of skin and elasticity. But collagen isn't just one protein. The human body contains 28 recognised types of collagen, each with different roles in tissues ranging from skin and tendons to cartilage, bones and muscles.
 
 **Collagen VI** is one of these types. Unlike the long rope-like fibres formed by some other collagens, it forms a distinctive network of fine, bead-like fibres called microfibrils, which help support and connect cells to their surrounding tissues.
 
-Collagen VI is primarily built from three protein chains — **α1(VI), α2(VI) and α3(VI)** — encoded by the genes **COL6A1, COL6A2 and COL6A3**. These chains assemble into a collagen VI molecule, then into dimers, then tetramers, which are released outside the cell and join together to form a microfibrillar network.
+Collagen VI is primarily built from three protein chains-- **α1(VI), α2(VI) and α3(VI)**-- encoded by the genes **COL6A1, COL6A2 and COL6A3**. These chains assemble into a collagen VI molecule, then into dimers, then tetramers, which are released outside the cell and join together to form a microfibrillar network.
 
 <Figure src={figure1} alt="Simplified collagen VI assembly" size="prose">
   Figure 1. Simplified collagen VI assembly. For a more detailed illustration, see <a href="https://journals.biologists.com/jcs/article/128/19/3525/55189/Collagen-VI-at-a-glance">Collagen VI at a glance</a>.
@@ -45,11 +45,15 @@ In muscle, this network helps anchor muscle fibres to surrounding connective tis
 
 This helps explain why mutations in collagen VI can cause muscular dystrophy, even though collagen VI isn't directly responsible for muscle contraction. And because it's also present in tissues such as skin, tendons and parts of the nervous system, its dysfunction can have wide-ranging effects beyond muscle weakness.
 
+I guess you could say collagen VI goes more than skin deep! ;)
+
 ## Mapping the COL6A3 Protein
 
 Now that I understood how collagen VI assembles and what it does, I wanted to dive deeper into the particular protein affected by my mutation.
 
-The COL6A3 gene encodes the **α3(VI) collagen chain**, an enormous protein containing 3,177 amino acids.
+Interestingly, only a relatively small portion of COL6A3 forms the familiar collagen triple helix. 
+Much of its size comes from an unusually long N-terminal region made up of repeated globular modules called **von Willebrand factor A (VWA) domains**, which help proteins interact with other molecules. 
+Unlike COL6A1 and COL6A2, which each contain just one N-terminal VWA domain, COL6A3 contains **ten**.
 
 <figure className="article-figure code-figure">
 
@@ -64,11 +68,9 @@ The COL6A3 gene encodes the **α3(VI) collagen chain**, an enormous protein cont
 <figcaption>Figure 2. COL6A3 protein positional map. Canonical COL6A3 architecture showing the N-terminal VWA region, triple-helical collagenous core, and C-terminal domains. p.Ile1563Asn lies in the N3 region.</figcaption>
 </figure>
 
-Interestingly, only a relatively small portion of this protein forms the familiar collagen triple helix. Much of the rest consists of repeated globular modules called **von Willebrand factor A domains**, or VWA domains. The N1-N10 blocks shown in the map are compact, folded domains that often help proteins interact with other molecules.
-
 This architecture matters because mutations in different parts of COL6A3 can affect the protein in different ways.
 
-One of the best-understood mechanisms behind collagen VI-related muscular dystrophy involves mutations in the triple-helical collagenous region, particularly substitutions of **glycine**, a small amino acid essential for the three collagen chains to join together correctly. 
+One of the best-understood mechanisms behind collagen VI-related muscular dystrophy involves mutations in the triple-helical collagenous region, particularly [substitutions of glycine](https://pmc.ncbi.nlm.nih.gov/articles/PMC4520221/), a small amino acid essential for the three collagen chains to join together correctly. 
 
 But my mutation doesn't sit there. It sits in the **N3 VWA domain**.
 
@@ -78,7 +80,7 @@ Although these studies don't establish what my N3 mutation does, they provide a 
 
 ## Mapping the Molecular Neighbourhood
 
-I started by searching ClinVar and the published literature for variants reported in and around the N3 domain, looking for clinical associations and other clues that might help put my own mutation into context.
+I started by searching ClinVar and the published literature for variants reported in the N3 domain, looking for clinical associations and other clues that might help put my own mutation into context.
 
 <figure className="article-figure code-figure">
 
@@ -137,9 +139,8 @@ My position, **I1563**, sits in a tightly packed, largely hydrophobic region of 
 This raises an interesting question: **could my substitution destabilise the N3 domain more than the conservative I1563M substitution?** The structural analysis alone can't answer that, but it provides a testable hypothesis for my next investigation.
 
 ## Putting the Pieces Together
+Overall, the variant map revealed reported associations with **Bethlem myopathy and early-onset dystonia**, although the evidence behind these associations varies considerably. 
+One particularly intriguing find was **I1563M, a variant affecting the exact same amino-acid position as mine**, but involving a more conservative substitution. 
+The structural comparison also highlighted how my mutation introduces a polar amino acid into a tightly packed, largely hydrophobic region of the protein.
 
-What began as an attempt to locate my mutation within COL6A3 revealed a surprisingly interesting picture of the N3 region.
-
-The variant map revealed reported associations with **Bethlem myopathy and early-onset dystonia**, although the evidence behind these associations varies considerably. An intriguing find was the discovery of **I1563M, a variant affecting the exact same amino-acid position as mine**, but involving a more conservative substitution.
-
-None of these findings establishes that my variant is pathogenic. But together, the map and structural comparison have turned an isolated genetic finding into **a much richer picture of its clinical context and molecular surroundings**.
+While none of this establishes that my variant is pathogenic, what started as an attempt to locate my mutation within COL6A3 has given me a much better understanding of its clinical context, structural environment, and potential significance.
