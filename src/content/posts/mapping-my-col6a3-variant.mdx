@@ -1,0 +1,147 @@
+---
+title: "Mapping My COL6A3 Variant: What Nearby Mutations Reveal"
+description: "Exploring collagen VI architecture, mapping nearby genetic variants, and investigating what the literature and protein structure tell us about my mutation."
+date: 2026-10-21
+category: Genetics
+tags: [Genetics, Computational Biology]
+draft: false
+toc: true
+comments: true
+commentId: mapping-my-col6a3-variant
+socialImage: /images/mapping-col6a3-social.jpg
+socialImageAlt: Mapping My COL6A3 Variant- What Nearby Mutations Reveal
+---
+import Figure from '../../components/Figure.astro';
+import ProteinDiagram from '../../components/ProteinDiagram.astro';
+import figure1 from './mapping-my-col6a3-variant-assets/image1.jpg';
+
+
+In my [previous investigation](https://canaicure.me/blog/investigating-my-genetic-mutation-with-ai/), I used a combination of AI and computational biology tools to investigate a genetic variant in my **COL6A3** gene. My variant, **I1563N** (*NM\_004369.4.4688T\>A, p.Ile1563Asn*), was classified as a **Variant of Uncertain Significance (VUS)**, meaning there wasn’t enough evidence to determine whether it was disease-causing.
+
+That investigation revealed several interesting clues. The affected amino acid was highly conserved across species, AlphaMissense and AlphaGenome suggested potentially damaging effects, and structural analysis showed that my mutation replaces a buried hydrophobic amino acid with a polar one, potentially disrupting its local structure or stability.
+
+But so far, I'd been examining my mutation largely in isolation.
+
+This time, I wanted to understand the bigger picture: **how collagen VI is built, where my mutation sits within COL6A3, and what other variants in the same region might tell us**.
+
+## A primer on Collagen VI
+
+When we hear *collagen*, we tend to think of skin and elasticity. But collagen isn't just one protein. The human body contains 28 recognised types of collagen, each with different roles in tissues ranging from skin and tendons to cartilage, bones and muscles
+
+**Collagen VI** is one of these types. Unlike the long rope-like fibres formed by some other collagens, it forms a distinctive network of fine, bead-like fibres called microfibrils, which help support and connect cells to their surrounding tissues.
+
+Collagen VI is primarily built from three protein chains — **α1(VI), α2(VI) and α3(VI)** — encoded by the genes **COL6A1, COL6A2 and COL6A3**. These chains assemble into a collagen VI molecule, then into dimers, then tetramers, which are released outside the cell and join together to form a microfibrillar network.
+
+<Figure src={figure1} alt="Simplified collagen VI assembly" size="prose">
+  Figure 1. Simplified collagen VI assembly. For a more detailed scientific illustration, see <a href="https://journals.biologists.com/jcs/article/128/19/3525/55189/Collagen-VI-at-a-glance">Collagen VI at a glance</a>.
+</Figure>
+
+But what does this network actually do?
+
+Our cells are surrounded by a meshwork of proteins and other molecules called the **extracellular matrix (ECM)**, which provides structural support and helps cells communicate with their surroundings.
+
+In muscle, this network helps anchor muscle fibres to surrounding connective tissue, distribute forces during contraction, and protect cells from mechanical stress. Collagen VI helps connect these supporting structures and influences signals involved in cell health and survival.
+
+This helps explain why mutations in collagen VI can cause muscular dystrophy, even though collagen VI isn't directly responsible for muscle contraction. And because it's also present in tissues such as skin, tendons and parts of the nervous system, its dysfunction can have wide-ranging effects beyond muscle weakness.
+
+## Mapping the COL6A3 Protein
+
+Now that I understood how collagen VI assembles and what it does, I wanted to dive deeper into the particular protein affected by my mutation.
+
+The COL6A3 gene encodes the **α3(VI) collagen chain**, an enormous protein containing 3,177 amino acids.
+
+<figure className="article-figure code-figure">
+
+<ProteinDiagram text={
+`N-TERMINAL VWA REGION                             COLLAGENOUS CORE          C-TERMINAL REGION
+────────────────────────────────────────────────────────────────────────────────────────────────▶
+[N10][N9][N8][N7][N6][N5][N4][N3][N2][N1] ── [ TRIPLE-HELICAL REGION ] ── [C1][C2][C3][C4][C5]
+                                 │
+                                 └──── region of interest
+                                      approx. aa 1433–1605`} />
+
+<figcaption>Figure 2. COL6A3 protein positional map. Canonical COL6A3 architecture showing the N-terminal VWA region, triple-helical collagenous core, and C-terminal domains. p.Ile1563Asn lies in the N3 region.</figcaption>
+</figure>
+
+Interestingly, only a relatively small portion of this protein forms the familiar collagen triple helix. Much of the rest consists of repeated globular modules called **von Willebrand factor A domains**, or VWA domains. The N1-N10 blocks shown in the map are compact, folded domains that often help proteins interact with other molecules.
+
+This architecture matters because mutations in different parts of COL6A3 can affect the protein in different ways.
+
+One of the best-understood mechanisms behind collagen VI-related muscular dystrophy involves mutations in the triple-helical collagenous region, particularly substitutions of **glycine**, a small amino acid essential for the three collagen chains to join together correctly. 
+
+But my mutation doesn't sit there. It sits in the **N3 VWA domain**.
+
+Previous studies of the [N5](https://pmc.ncbi.nlm.nih.gov/articles/PMC3919171/) and [N2](https://pmc.ncbi.nlm.nih.gov/articles/PMC7476709/) domains suggest that mutations outside the triple helix can also disrupt collagen VI function, potentially by affecting how these domains fold, interact with other molecules, or contribute to protein assembly and secretion.
+
+Although these studies don't establish what my N3 mutation does, they provide a reason to investigate this region more closely.
+
+## Mapping the Molecular Neighbourhood
+
+I started by searching ClinVar and the published literature for variants reported in and around the N3 domain, looking for clinical associations and other clues that might help put my own mutation into context.
+
+<figure className="article-figure code-figure">
+
+<ProteinDiagram text=
+{`N3 local region — canonical COL6A3 numbering
+
+1433                                                                                 ~1605
+├────────────────────────────────────────────────────────────────────────────────────────┤
+       │             │           │        │        │            │            │        │
+     N1467D        G1517S      Q1553H   D1555G   A1560T       I1563        I1578V   R1591K
+       │             │           │        │        │         /     \\         │        │
+    Reported      Reported     nearby   nearby   buried   I1563M   I1563N  nearby  Bethlem
+  COL6/Bethlem    isolated     VUS      VUS      likely      |       |     VUS     context
+    myopathy      dystonia                       benign   Bethlem    MY              VUS
+                                                          context   VUS
+                                                          VUS                               `} />
+<figcaption>Figure 3. Local COL6A3 variant map around p.Ile1563Asn. Selected nearby variants from published COL6A3 literature and clinical variant databases.</figcaption>
+</figure>
+
+
+A few variants stood out:
+
+* [**G1517S**](https://pmc.ncbi.nlm.nih.gov/articles/PMC10110855/) has been reported in the context of early-onset dystonia, a movement disorder involving involuntary muscle contractions. This was particularly interesting because it suggested a possible connection between COL6A3 and neurological presentations, although the evidence remains limited.  
+* [**I1563M**](https://www.ncbi.nlm.nih.gov/clinvar/variation/500624/?term=%28COL6A3%5Bgene%5D+AND+%22Ile1563Met%22%29) was a particularly intriguing find:   
+  **Another variant affecting the exact same amino-acid position as mine\!**   
+  It was submitted to ClinVar in association with Bethlem myopathy but remains classified as a VUS. While my mutation **I1563N** replaces isoleucine (hydrophobic) with asparagine (polar), **I1563M** replaces it with methionine (also hydrophobic). This more conservative substitution might be better tolerated structurally, making it an especially interesting comparison to mine.
+
+The remaining nearby variants had more limited clinical evidence, but together they provided a useful set of comparisons in terms of their reported clinical associations.
+
+## Comparing the Variants Structurally
+
+Having identified several variants in and around the N3 domain, I wanted to understand how their positions within the protein's three-dimensional structure compared.
+
+In my [previous investigation](https://canaicure.me/blog/investigating-my-genetic-mutation-with-ai/), I used AlphaFold and ChimeraX to analyse the structural environment of my mutation. I extended the same analysis to the nearby variants, comparing their solvent accessibility, structural confidence and local secondary structure.
+
+<figure className="article-figure table-figure" aria-labelledby="table-1-caption">
+
+| Variant | Amino-acid change | SASA (Å²) | pLDDT | Structure | Local environment | Reported context |
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| [N1467D](https://www.ncbi.nlm.nih.gov/clinvar/variation/94934/) | Polar → acidic | 74.38 | 86.50 | Coil | Partly exposed | Historical Bethlem/Ullrich association; conflicting classification |
+| [G1517S](https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1105760/full) | Glycine → polar | 0.089 | 93.81 | Helix | Buried; tightly packed, mixed surroundings | Reported in early-onset dystonia |
+| [Q1553H](https://clinvarminer.genetics.utah.edu/variants-by-gene/COL6A3/submitter/61756/uncertain%20significance) | Polar → histidine | 128.8 | 92.69 | Coil | Surface-facing | VUS |
+| [D1555G](https://clinvarminer.genetics.utah.edu/variants-by-gene/COL6A3/submitter/61756/uncertain%20significance) | Acidic → glycine | 86.33 | 91.50 | Coil | Intermediate exposure | VUS |
+| [A1560T](https://clinvarminer.genetics.utah.edu/variants-by-mondo-condition/24530/gene/COL6A3/benign) | Nonpolar → polar | \~0 | 92.31 | Helix | Buried; tightly packed, mixed/hydrophobic surroundings | Reported benign/likely benign; verify classification |
+| [I1563M](https://www.ncbi.nlm.nih.gov/snp/rs201178064) | Hydrophobic → hydrophobic | 0.083 | 91.19 | Helix | Buried; same original pocket as I1563N | Bethlem-associated submission; VUS |
+| **I1563N (my VUS)** | Hydrophobic → polar | 0.083 | 91.19 | Helix | Buried; tightly packed, largely hydrophobic surroundings | My VUS |
+| [I1578V](https://www.ncbi.nlm.nih.gov/clinvar/variation/1174537) | Hydrophobic → hydrophobic | 19.18 | 87.00 | Coil | Partly buried; more polar/charged surroundings | VUS |
+| [R1591K](https://www.ncbi.nlm.nih.gov/clinvar/variation/2314356) | Basic → basic | 191.6 | 89.56 | Helix | Surface-exposed | VUS; Bethlem context |
+
+<figcaption id="table-1-caption">Table 1. Structural comparison of nearby COL6A3 variants. SASA measures how exposed a residue is to its surroundings (lower means more buried), while pLDDT indicates model confidence.</figcaption>
+</figure>
+
+A few patterns stood out: G1517, A1560 and I1563 are deeply buried within the protein, whereas positions like Q1553 and R1591 are much more exposed.
+
+My position, **I1563**, sits in a tightly packed, largely hydrophobic region of the N3 domain. This makes I1563M an especially interesting comparison: although both variants affect the same position, they introduce amino acids with different chemical properties.
+
+This raises an interesting question: **could my substitution destabilise the N3 domain more than the conservative I1563M substitution?** The structural analysis alone can't answer that, but it provides a testable hypothesis for my next investigation.
+
+## Putting the Pieces Together
+
+What began as an attempt to locate my mutation within COL6A3 revealed a surprisingly interesting picture of the N3 region.
+
+The variant map revealed reported associations with **Bethlem myopathy and early-onset dystonia**, although the evidence behind these associations varies considerably. Most intriguing was the discovery of **I1563M, a variant affecting the exact same amino-acid position as mine**, but involving a more conservative substitution.
+
+The structural comparison added another layer: my variant introduces a polar amino acid into a tightly packed, largely hydrophobic region of the protein, raising questions about how it might affect the domain's stability.
+
+None of these findings establishes that my variant is pathogenic. But together, the map and structural comparison have turned an isolated genetic finding into **a much richer picture of its clinical context and molecular surroundings**.

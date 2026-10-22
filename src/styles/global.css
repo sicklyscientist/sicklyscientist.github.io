@@ -212,3 +212,17 @@ body:has(.about-intro) .shell{max-width:832px}body:has(.about-intro) .about-intr
   .article { padding-top: 16px; }
   .article-header { margin-bottom: 24px; }
 }
+
+/* Tables share the figure caption styling without a duplicate divider. */
+.prose .table-figure table { margin: 0; }
+.prose .table-figure figcaption { border-top: 0; }
+
+/* Text diagrams keep their alignment and scroll within the prose column. */
+.prose .code-figure pre {
+  margin: 0;
+  padding: 16px;
+  white-space: pre;
+  overflow-x: auto;
+  font-size: .75rem;
+  line-height: 1.6;
+}

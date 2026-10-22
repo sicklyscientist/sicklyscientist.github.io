@@ -1,0 +1,36 @@
+---
+interface Props { text: string }
+const { text } = Astro.props;
+const local = text.includes('N3 local region');
+const lines = text.split('\n');
+const variantLine = lines.find(line => line.includes('I1563N')) || '';
+const myColumn = variantLine.indexOf('I1563N');
+const tokenPattern = local
+  ? /I1563M|I1563N|COL6A3|COL6|1433|1605|VUS|MY/g
+  : /N10|N[1-9]|C[1-5]|TRIPLE-HELICAL REGION/g;
+const highlighted = lines.map(line => {
+  const segments: { text: string; tone?: string }[] = [];
+  let cursor = 0;
+  for (const match of line.matchAll(tokenPattern)) {
+    const index = match.index!;
+    segments.push({ text: line.slice(cursor, index) });
+    const ownVariant = match[0] === 'I1563N' || match[0] === 'MY'
+      || (match[0] === 'VUS' && Math.abs(index - myColumn) <= 3);
+    if (match[0] === 'I1563M') {
+      segments.push({ text: 'I1563', tone: 'lime' }, { text: 'M', tone: 'amber' });
+    } else {
+      segments.push({ text: match[0], tone: !local || ownVariant ? 'lime' : 'amber' });
+    }
+    cursor = index + match[0].length;
+  }
+  segments.push({ text: line.slice(cursor) });
+  return segments;
+});
+---
+<pre class="protein-diagram" tabindex="0" aria-label="Protein map; scroll horizontally to see the full diagram"><code>{highlighted.map((segments, index) => <>{segments.map(segment => <span class={segment.tone}>{segment.text}</span>)}{index < lines.length - 1 ? '\n' : ''}</>)}</code></pre>
+<style>
+  .protein-diagram { background: #292929; color: #f1f1e9; border-color: #414141; color-scheme: dark; }
+  .lime { color: #a6d936; }
+  .amber { color: #f4ad32; }
+  code, span { font-weight: 400; }
+</style>
