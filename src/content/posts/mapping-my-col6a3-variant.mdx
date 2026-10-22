@@ -34,7 +34,7 @@ When we hear *collagen*, we tend to think of skin and elasticity. But collagen i
 Collagen VI is primarily built from three protein chains — **α1(VI), α2(VI) and α3(VI)** — encoded by the genes **COL6A1, COL6A2 and COL6A3**. These chains assemble into a collagen VI molecule, then into dimers, then tetramers, which are released outside the cell and join together to form a microfibrillar network.
 
 <Figure src={figure1} alt="Simplified collagen VI assembly" size="prose">
-  Figure 1. Simplified collagen VI assembly. For a more detailed scientific illustration, see <a href="https://journals.biologists.com/jcs/article/128/19/3525/55189/Collagen-VI-at-a-glance">Collagen VI at a glance</a>.
+  Figure 1. Simplified collagen VI assembly. For a more detailed illustration, see <a href="https://journals.biologists.com/jcs/article/128/19/3525/55189/Collagen-VI-at-a-glance">Collagen VI at a glance</a>.
 </Figure>
 
 But what does this network actually do?
@@ -91,16 +91,15 @@ I started by searching ClinVar and the published literature for variants reporte
      N1467D        G1517S      Q1553H   D1555G   A1560T       I1563        I1578V   R1591K
        │             │           │        │        │         /     \\         │        │
     Reported      Reported     nearby   nearby   buried   I1563M   I1563N  nearby  Bethlem
-  COL6/Bethlem    isolated     VUS      VUS      likely      |       |     VUS     context
+  COL6/Bethlem    isolated      VUS      VUS     likely      |       |      VUS    context
     myopathy      dystonia                       benign   Bethlem    MY              VUS
-                                                          context   VUS
-                                                          VUS                               `} />
+                                                          context    VUS
+                                                            VUS                               `} />
 <figcaption>Figure 3. Local COL6A3 variant map around p.Ile1563Asn. Selected nearby variants from published COL6A3 literature and clinical variant databases.</figcaption>
 </figure>
 
 
-A few variants stood out:
-
+The variant map revealed several reported associations with Bethlem myopathy, alongside a less expected connection to early-onset dystonia. Two variants stood out:
 * [**G1517S**](https://pmc.ncbi.nlm.nih.gov/articles/PMC10110855/) has been reported in the context of early-onset dystonia, a movement disorder involving involuntary muscle contractions. This was particularly interesting because it suggested a possible connection between COL6A3 and neurological presentations, although the evidence remains limited.  
 * [**I1563M**](https://www.ncbi.nlm.nih.gov/clinvar/variation/500624/?term=%28COL6A3%5Bgene%5D+AND+%22Ile1563Met%22%29) was a particularly intriguing find:   
   **Another variant affecting the exact same amino-acid position as mine\!**   
@@ -131,7 +130,7 @@ In my [previous investigation](https://canaicure.me/blog/investigating-my-geneti
 <figcaption id="table-1-caption">Table 1. Structural comparison of nearby COL6A3 variants. SASA measures how exposed a residue is to its surroundings (lower means more buried), while pLDDT indicates model confidence.</figcaption>
 </figure>
 
-A few patterns stood out: G1517, A1560 and I1563 are deeply buried within the protein, whereas positions like Q1553 and R1591 are much more exposed.
+G1517, A1560 and I1563 are deeply buried within the protein, whereas positions like Q1553 and R1591 are much more exposed.
 
 My position, **I1563**, sits in a tightly packed, largely hydrophobic region of the N3 domain. This makes I1563M an especially interesting comparison: although both variants affect the same position, they introduce amino acids with different chemical properties.
 
@@ -141,8 +140,6 @@ This raises an interesting question: **could my substitution destabilise the N3 
 
 What began as an attempt to locate my mutation within COL6A3 revealed a surprisingly interesting picture of the N3 region.
 
-The variant map revealed reported associations with **Bethlem myopathy and early-onset dystonia**, although the evidence behind these associations varies considerably. Most intriguing was the discovery of **I1563M, a variant affecting the exact same amino-acid position as mine**, but involving a more conservative substitution.
-
-The structural comparison added another layer: my variant introduces a polar amino acid into a tightly packed, largely hydrophobic region of the protein, raising questions about how it might affect the domain's stability.
+The variant map revealed reported associations with **Bethlem myopathy and early-onset dystonia**, although the evidence behind these associations varies considerably. An intriguing find was the discovery of **I1563M, a variant affecting the exact same amino-acid position as mine**, but involving a more conservative substitution.
 
 None of these findings establishes that my variant is pathogenic. But together, the map and structural comparison have turned an isolated genetic finding into **a much richer picture of its clinical context and molecular surroundings**.
