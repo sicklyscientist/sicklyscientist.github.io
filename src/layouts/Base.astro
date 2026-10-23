@@ -13,6 +13,13 @@ const pageTitle = title ? `${title} — ${site.title}` : site.title;
 const canonical = new URL(Astro.url.pathname, Astro.site!);
 const imageURL = absolute(image, Astro.site!);
 const current = Astro.url.pathname;
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'CanAICure.me',
+  alternateName: ['Can AI Cure Me', 'Can AI Cure Me?'],
+  url: new URL(path(), Astro.site!).href,
+};
 const identityJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -50,6 +57,7 @@ const identityJsonLd = {
     <link rel="apple-touch-icon" sizes="180x180" href={path('apple-touch-icon.png')} />
     <link rel="alternate" type="application/rss+xml" title={site.title} href={path('rss.xml')} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(identityJsonLd)} />
+    {current === path() && <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />}
     <script is:inline>
       (() => {
         let theme;
